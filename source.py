@@ -25,25 +25,22 @@ def distance_two_cities(city_a, city_b, data_frame):
 
 
 def exhaustive_search(data_frame, search_depth):
-    selected_data_frame = data_frame.loc[:, :'Budapest'][:search_depth]
-    distance_two_cities('Barcelona', 'Belgrade', data_frame)
+    selected_cities = data_frame.columns.values[0:search_depth]
 
     min_distance = float("inf")
     min_route = []
-
-    for one_travel in permutations(selected_data_frame.columns.values):
+    for one_travel in permutations(selected_cities):
         each_trip_dist_array = []
         for city_pair in pairwise_circle(one_travel):
-            each_trip_dist_array.append(distance_two_cities(city_pair[0], city_pair[1], selected_data_frame))
+            each_trip_dist_array.append(distance_two_cities(city_pair[0], city_pair[1], data_frame))
         distance_calculated = sum(each_trip_dist_array)
-
         if distance_calculated < min_distance:
             min_distance = distance_calculated
             min_route = one_travel
-            
+
     print(min_distance, min_route)
 
 
 if __name__ == "__main__":
     europe_cities_data_frame = pd.read_csv("european_cities.csv", sep=';')
-    exhaustive_search(europe_cities_data_frame, 6)
+    exhaustive_search(europe_cities_data_frame, 8)
