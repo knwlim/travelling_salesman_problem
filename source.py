@@ -77,7 +77,12 @@ def hill_climbing(data_frame, search_depth):
                     best_distance = distance_calculated
                     best_route = new_route
                     improved = True
+
     return best_distance, best_route
+
+
+def genetic_algorithm():
+    pass
 
 
 if __name__ == "__main__":
